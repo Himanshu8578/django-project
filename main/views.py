@@ -98,3 +98,34 @@ def ai_page(request):
         response_text = f"You asked: {user_input} 🔥"
 
     return render(request, "ai.html", {"response": response_text})
+import requests
+from django.shortcuts import render
+
+def ai_page(request):
+    response_text = ""
+
+    if request.method == "POST":
+        user_input = request.POST.get("prompt")
+
+        try:
+            response = requests.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers={
+                    "Authorization": "Bearer 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",
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "model": "openai/gpt-3.5-turbo",
+                    "messages": [
+                        {"role": "user", "content": user_input}
+                    ]
+                }
+            )
+
+            data = response.json()
+            response_text = data['choices'][0]['message']['content']
+
+        except:
+            response_text = "Error aa gaya 😅"
+
+    return render(request, "ai.html", {"response": response_text})
