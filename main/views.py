@@ -82,7 +82,7 @@ def ai_page(request):
 
         try:
             response = requests.post(
-                "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyARS8vcrhuIru165GPQatYpXtWR3tgCIMo",
+                "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyARS8vcrhuIru165GPQatYpXtWR3tgCIMo",
                 json={
                     "contents": [
                         {
