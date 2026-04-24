@@ -80,27 +80,22 @@ def ai_page(request):
         user_input = request.POST.get("prompt")
 
         try:
-            url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyARS8vcrhuIru165GPQatYpXtWR3tgCIMo"
-
-            payload = {
-                "contents": [
-                    {
-                        "parts": [
-                            {"text": user_input}
-                        ]
-                    }
-                ]
-            }
-
-            response = requests.post(url, json=payload)
+            response = requests.post(
+                "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyARS8vcrhuIru165GPQatYpXtWR3tgCIMo",
+                json={
+                    "contents": [
+                        {
+                            "parts": [
+                                {"text": user_input}
+                            ]
+                        }
+                    ]
+                }
+            )
 
             data = response.json()
 
-            # DEBUG (important)
-            if "candidates" in data:
-                response_text = data["candidates"][0]["content"]["parts"][0]["text"]
-            else:
-                response_text = str(data)
+            response_text = data['candidates'][0]['content']['parts'][0]['text']
 
         except Exception as e:
             response_text = f"Error: {str(e)}"
