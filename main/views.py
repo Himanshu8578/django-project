@@ -77,7 +77,18 @@ def edit(request):
 
 # 🔥 AI FUNCTION (ONLY THIS ONE)
 import requests
+from django.shortcuts import render, redirect
 
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+def edit(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    return render(request, 'edit.html')
+
+
+# 🔥 ONLY AI FUNCTION (FINAL)
 def ai_page(request):
     response_text = ""
 
@@ -107,6 +118,6 @@ def ai_page(request):
                 response_text = str(data)
 
         except Exception as e:
-            response_text = str(e)
+            response_text = f"Error: {str(e)}"
 
     return render(request, "ai.html", {"response": response_text})
