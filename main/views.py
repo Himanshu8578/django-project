@@ -100,7 +100,7 @@ def ai_page(request):
             response = requests.post(
                 "https://openrouter.ai/api/v1/chat/completions",
                 headers={
-                    "Authorization": "Bearer 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",
+                    "Authorization": "Bearer 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",
                     "Content-Type": "application/json",
                     "HTTP-Referer": "https://django-project-tuji.onrender.com",
                     "X-Title": "My Django AI App"
