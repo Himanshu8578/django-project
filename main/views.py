@@ -71,6 +71,8 @@ def edit(request):
 
 
 # ---------------- 🤖 AI PAGE (GEMINI FREE) ----------------
+import requests
+
 def ai_page(request):
     response_text = ""
 
@@ -78,21 +80,23 @@ def ai_page(request):
         user_input = request.POST.get("prompt")
 
         try:
-            response = requests.post(
-                "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyANWLzD87wHaZPVbQbY42Tu3Y3CPPiFlUU",
-                json={
-                    "contents": [
-                        {
-                            "parts": [
-                                {"text": user_input}
-                            ]
-                        }
-                    ]
-                }
-            )
+            url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyARS8vcrhuIru165GPQatYpXtWR3tgCIMo"
+
+            payload = {
+                "contents": [
+                    {
+                        "parts": [
+                            {"text": user_input}
+                        ]
+                    }
+                ]
+            }
+
+            response = requests.post(url, json=payload)
 
             data = response.json()
 
+            # DEBUG (important)
             if "candidates" in data:
                 response_text = data["candidates"][0]["content"]["parts"][0]["text"]
             else:
