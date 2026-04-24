@@ -10,3 +10,13 @@ urlpatterns = [
     path('virtual-bg/', views.virtual_bg, name='virtual_bg'),
 ]
 path('', views.home, name='home'),
+from .views import ai_response
+
+urlpatterns = [
+    path('ai/', ai_response, name='ai'),
+]
+from .views import ai_page
+
+urlpatterns = [
+    path('ai/', ai_page, name='ai'),
+]
