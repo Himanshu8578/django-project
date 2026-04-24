@@ -1,90 +1,29 @@
-{% if user.is_authenticated %}
-    <h2>Welcome {{ user.username }} 👋</h2>
-    <a href="/logout/"><button>Logout</button></a>
-{% else %}
-    <a href="/login/"><button>Login</button></a>
-{% endif %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My App</title>
-    <style>
-        body {
-            font-family: Arial;
-            background: #f5f5f5;
-            padding: 30px;
-        }
-        h1 {
-            color: #333;
-        }
-        input {
-            padding: 8px;
-            margin: 5px;
-        }
-        button {
-            padding: 8px 12px;
-            background: blue;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        li {
-            margin: 10px 0;
-        }
-        a {
-            margin-left: 10px;
-            text-decoration: none;
-        }
-    </style>
-</head>
-
-<body>
-
-<h1>🔥 Welcome Himanshu</h1>
-
-<form method="GET">
-    <input type="text" name="q" placeholder="Search name...">
-    <button type="submit">Search</button>
-</form>
-
-<form method="POST">
-    {% csrf_token %}
-    <input type="text" name="name" placeholder="Enter name" required>
-    <button type="submit">Add</button>
-</form>
-
-<ul>
-  {% for i in data %}
-    <li>
-      {{ i }}
-      <a href="/delete/{{ i.id }}/">❌ Delete</a>
-      <a href="/edit/{{ i.id }}/">✏️ Edit</a>
-    </li>
-  {% endfor %}
-</ul>
-
-</body>
-</html>
-<button style="background: green; color: white;">Add</button>
-<button style="background: blue; color: white;">Search</button>
-<a href="/virtual-bg/" style="padding:10px; background:green; color:white; text-decoration:none;">
-    🎨 Virtual Background
-</a>
-<a href="/dashboard/">
-    <button>Go to Dashboard</button>
-</a>
-<a href="/signup/">
-    <button>Signup</button>
-</a>
-<h1>WORKING 🔥</h1>
 {% extends 'base.html' %}
 
 {% block content %}
-<h1 class="text-3xl font-bold">Welcome Himanshu 🚀</h1>
 
-<div class="mt-5 space-x-4">
-    <a href="/login/" class="bg-blue-500 text-white px-4 py-2 rounded">Login</a>
-    <a href="/signup/" class="bg-green-500 text-white px-4 py-2 rounded">Signup</a>
+<div style="text-align:center; padding:40px;">
+
+    <h1>🔥 Welcome to My Website</h1>
+
+    <p>This is my Django project running live 🚀</p>
+
+    <br>
+
+    <a href="/ai/">
+        <button>Go to AI Page</button>
+    </a>
+
+    <br><br>
+
+    <a href="/login/">
+        <button>Login</button>
+    </a>
+
+    <a href="/signup/">
+        <button>Signup</button>
+    </a>
+
 </div>
+
 {% endblock %}
-<a href="/ai/">Go to AI Page</a>
