@@ -96,19 +96,21 @@ def ai_page(request):
         user_input = request.POST.get("prompt")
 
         try:
-            response = requests.post(
-                "https://openrouter.ai/api/v1/chat/completions",
-                headers={
-                    "Authorization": "Bearer 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",
-                    "Content-Type": "application/json"
-                },
-                json={
-                    "model": "openai/gpt-3.5-turbo",
-                    "messages": [
-                        {"role": "user", "content": user_input}
-                    ]
-                }
-            )
+           response = requests.post(
+    "https://openrouter.ai/api/v1/chat/completions",
+    headers={
+        "Authorization": "Bearer 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",
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://django-project-tuji.onrender.com",
+        "X-Title": "My Django AI App"
+    },
+    json={
+        "model": "openai/gpt-3.5-turbo",
+        "messages": [
+            {"role": "user", "content": user_input}
+        ]
+    }
+)
 
             data = response.json()
 
