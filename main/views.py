@@ -85,19 +85,16 @@ def ai_response(request):
 
     return render(request, "ai.html")
 from django.shortcuts import render
-import requests
+
+def home(request):
+    return render(request, "home.html")
+
 
 def ai_page(request):
     response_text = ""
 
     if request.method == "POST":
         user_input = request.POST.get("prompt")
-# 🤖 AI page
-def ai_page(request):
-    response_text = ""
-
-    if request.method == "POST":
-        user_input = request.POST.get("prompt")
-        response_text = f"You asked: {user_input} 😄"
+        response_text = f"You asked: {user_input} 🔥"
 
     return render(request, "ai.html", {"response": response_text})
