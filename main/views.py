@@ -72,6 +72,7 @@ def edit(request):
 
 # ---------------- 🤖 AI PAGE (GEMINI FREE) ----------------
 import requests
+from django.shortcuts import render
 
 def ai_page(request):
     response_text = ""
@@ -94,8 +95,14 @@ def ai_page(request):
             )
 
             data = response.json()
+            print(data)   # debug ke liye
 
-            response_text = data['candidates'][0]['content']['parts'][0]['text']
+            if "candidates" in data:
+                response_text = data['candidates'][0]['content']['parts'][0]['text']
+            elif "error" in data:
+                response_text = f"API Error: {data['error']}"
+            else:
+                response_text = str(data)
 
         except Exception as e:
             response_text = f"Error: {str(e)}"
