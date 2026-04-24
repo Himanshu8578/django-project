@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Virtual BG</title>
+</head>
+<body>
+
+<h2>Virtual Background Tool 🔥</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="image" required>
+    <button type="submit">Upload</button>
+</form>
+
+{% if output_url %}
+    <h3>Result:</h3>
+    <img src="{{ output_url }}" width="300">
+    <br><br>
+    <a href="{{ output_url }}" download>Download</a>
+{% endif %}
+
+<br><br>
+<a href="/">Back</a>
+
+</body>
+</html>

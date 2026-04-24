@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit</title>
+</head>
+<body>
+
+<h1>✏️ Edit Name</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="name" value="{{ data.name }}">
+    <button type="submit">Update</button>
+</form>
+
+</body>
+</html>
