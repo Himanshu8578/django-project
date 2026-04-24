@@ -5,15 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 import os
-from rembg import remove
 
-
-# 🔥 HOME
+# HOME
 def home(request):
     return render(request, 'home.html')
 
-
-# 🔥 SIGNUP
+# SIGNUP
 def signup(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -27,8 +24,7 @@ def signup(request):
 
     return render(request, 'signup.html')
 
-
-# 🔥 LOGIN
+# LOGIN
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -44,40 +40,35 @@ def user_login(request):
 
     return render(request, 'login.html')
 
-
-# 🔥 LOGOUT
+# LOGOUT
 def user_logout(request):
     logout(request)
     return redirect('login')
 
-
-# 🔥 DASHBOARD
+# DASHBOARD
 @login_required
 def dashboard(request):
     return render(request, 'dashboard.html')
 
-
-# 🔥 VIRTUAL BACKGROUND
+# VIRTUAL BG
 @login_required
 def virtual_bg(request):
+    output_url = None
+
     if request.method == 'POST' and request.FILES.get('image'):
         image = request.FILES['image']
 
         fs = FileSystemStorage()
         filename = fs.save(image.name, image)
-
         input_path = fs.path(filename)
 
         output_filename = "output_" + filename
         output_path = os.path.join(settings.MEDIA_ROOT, output_filename)
 
-        # 🔥 remove background
         with open(input_path, 'rb') as i:
             with open(output_path, 'wb') as o:
                 o.write(remove(i.read()))
 
         output_url = settings.MEDIA_URL + output_filename
 
-        return render(request, 'virtual_bg.html', {'output_url': output_url})
-
-    return render(request, 'virtual_bg.html')
+    return render(request, 'virtual_bg.html', {'output_url': output_url})
