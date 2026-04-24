@@ -66,40 +66,17 @@ def edit(request):
 
     return render(request, 'edit.html')
 
-from django.conf import settings
+def dashboard(request):
+    return render(request, 'dashboard.html')
 
-def ai_response(request):
-    if request.method == "POST":
-        user_input = request.POST.get('prompt')
-
-        openai.api_key = "YOUR_API_KEY"
-
-        response = openai.ChatCompletion.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": user_input}]
-        )
-
-        reply = response['choices'][0]['message']['content']
-
-        return render(request, "ai.html", {"response": reply})
-
-    return render(request, "ai.html")
-from django.shortcuts import render
-
-def home(request):
-    return render(request, "home.html")
+def edit(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    return render(request, 'edit.html')
 
 
-def ai_page(request):
-    response_text = ""
-
-    if request.method == "POST":
-        user_input = request.POST.get("prompt")
-        response_text = f"You asked: {user_input} 🔥"
-
-    return render(request, "ai.html", {"response": response_text})
+# 🔥 AI FUNCTION (ONLY THIS ONE)
 import requests
-from django.shortcuts import render
 
 def ai_page(request):
     response_text = ""
@@ -123,9 +100,13 @@ def ai_page(request):
             )
 
             data = response.json()
-            response_text = data['choices'][0]['message']['content']
 
-        except:
-            response_text = "Error aa gaya 😅"
+            if "choices" in data:
+                response_text = data['choices'][0]['message']['content']
+            else:
+                response_text = str(data)
+
+        except Exception as e:
+            response_text = str(e)
 
     return render(request, "ai.html", {"response": response_text})
