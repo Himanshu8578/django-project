@@ -1,24 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>AI Chat</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-<h2>Ask AI</h2>
+{% block content %}
 
-<form method="POST">
-    {% csrf_token %}
-    <input type="text" name="prompt" placeholder="Ask something..." required>
-    <button type="submit">Ask</button>
-</form>
+<div style="max-width:600px; margin:auto; text-align:center;">
 
-<br>
+    <h2>🤖 AI Assistant</h2>
+    <p>Ask anything below 👇</p>
 
-{% if response %}
-    <h3>AI Response:</h3>
-    <p>{{ response }}</p>
-{% endif %}
+    <form method="POST" style="margin-top:20px;">
+        {% csrf_token %}
+        <input 
+            type="text" 
+            name="prompt" 
+            placeholder="Type your question..." 
+            style="padding:10px; width:70%; border-radius:5px; border:1px solid #ccc;"
+            required
+        >
+        <button 
+            type="submit" 
+            style="padding:10px 15px; background:#0d6efd; color:white; border:none; border-radius:5px;"
+        >
+            Ask
+        </button>
+    </form>
 
-</body>
-</html>
+    <br><br>
+
+    {% if response %}
+        <div style="background:#f1f1f1; padding:15px; border-radius:10px;">
+            <h3>💡 Response:</h3>
+            <p>{{ response }}</p>
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}
