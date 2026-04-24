@@ -88,7 +88,8 @@ def edit(request):
     return render(request, 'edit.html')
 
 
-# 🔥 ONLY AI FUNCTION (FINAL)
+import requests
+
 def ai_page(request):
     response_text = ""
 
@@ -96,26 +97,26 @@ def ai_page(request):
         user_input = request.POST.get("prompt")
 
         try:
-           response = requests.post(
-    "https://openrouter.ai/api/v1/chat/completions",
-    headers={
-        "Authorization": "Bearer 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",
-        "Content-Type": "application/json",
-        "HTTP-Referer": "https://django-project-tuji.onrender.com",
-        "X-Title": "My Django AI App"
-    },
-    json={
-        "model": "openai/gpt-3.5-turbo",
-        "messages": [
-            {"role": "user", "content": user_input}
-        ]
-    }
-)
+            response = requests.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers={
+                    "Authorization": "Bearer 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",
+                    "Content-Type": "application/json",
+                    "HTTP-Referer": "https://django-project-tuji.onrender.com",
+                    "X-Title": "My Django AI App"
+                },
+                json={
+                    "model": "openai/gpt-3.5-turbo",
+                    "messages": [
+                        {"role": "user", "content": user_input}
+                    ]
+                }
+            )
 
             data = response.json()
 
             if "choices" in data:
-                response_text = data['choices'][0]['message']['content']
+                response_text = data["choices"][0]["message"]["content"]
             else:
                 response_text = str(data)
 
