@@ -65,7 +65,7 @@ def edit(request):
         return redirect('login')
 
     return render(request, 'edit.html')
-import openai
+
 from django.conf import settings
 
 def ai_response(request):
