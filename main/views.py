@@ -82,25 +82,24 @@ def ai_page(request):
 
         try:
             response = requests.post(
-                "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=AIzaSyBXX3vefeUBa0w4YoYH1ogTeFhTbyL1nSs",
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers={
+                    "Authorization": "Bearer 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",
+                    "Content-Type": "application/json"
+                },
                 json={
-                    "contents": [
-                        {
-                            "parts": [
-                                {"text": user_input}
-                            ]
-                        }
+                    "model": "mistralai/mistral-7b-instruct",
+                    "messages": [
+                        {"role": "user", "content": user_input}
                     ]
                 }
             )
 
             data = response.json()
-            print(data)   # debug ke liye
+            print(data)
 
-            if "candidates" in data:
-                response_text = data['candidates'][0]['content']['parts'][0]['text']
-            elif "error" in data:
-                response_text = f"API Error: {data['error']}"
+            if "choices" in data:
+                response_text = data["choices"][0]["message"]["content"]
             else:
                 response_text = str(data)
 
