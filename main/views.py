@@ -97,30 +97,32 @@ def ai_page(request):
         user_input = request.POST.get("prompt")
 
         try:
+           import requests
+
+def ai_page(request):
+    response_text = ""
+
+    if request.method == "POST":
+        user_input = request.POST.get("prompt")
+
+        try:
             response = requests.post(
-                "https://openrouter.ai/api/v1/chat/completions",
-                headers={
-                    "Authorization": "Bearer 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",
-                    "Content-Type": "application/json",
-                    "HTTP-Referer": "https://django-project-tuji.onrender.com",
-                    "X-Title": "My Django AI App"
-                },
+                "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyANWLzD87wHaZPVbQbY42Tu3Y3CPPiFlUU",
                 json={
-                    "model": "openai/gpt-3.5-turbo",
-                    "messages": [
-                        {"role": "user", "content": user_input}
+                    "contents": [
+                        {
+                            "parts": [
+                                {"text": user_input}
+                            ]
+                        }
                     ]
                 }
             )
 
             data = response.json()
-
-            if "choices" in data:
-                response_text = data["choices"][0]["message"]["content"]
-            else:
-                response_text = str(data)
+            response_text = data["candidates"][0]["content"]["parts"][0]["text"]
 
         except Exception as e:
-            response_text = f"Error: {str(e)}"
+            response_text = str(e)
 
     return render(request, "ai.html", {"response": response_text})
