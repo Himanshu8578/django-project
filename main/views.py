@@ -84,7 +84,7 @@ def ai_page(request):
             response = requests.post(
                 "https://openrouter.ai/api/v1/chat/completions",
                 headers={
-                    "Authorization": "Bearer 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",
+                    "Authorization": "Bearer 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",
                     "Content-Type": "application/json"
                 },
                 json={
